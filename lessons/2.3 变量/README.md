@@ -12,11 +12,19 @@ var f, error = os.Open(name)
 ```
 
 # 短变量
+> name := expression
+> name的类型由expression的类型决定
+
 ```go
 t := 0.0
 i, j := 0, 1
 i, j = j, i     // 交换i和j的值
 f, err := os.Open(name)
+```
+短变量至少要声明一个新的变量，否则编译出错。
+```go
+f, err := os.Open(name)
+f, err := os.Open(name)  // 出错
 ```
 
 # 指针

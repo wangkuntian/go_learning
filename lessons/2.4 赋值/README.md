@@ -21,7 +21,7 @@ a[i], a[j] = a[j], a[i]
 ```go
 func gcd(x, y int) int {
     for y != 0 {
-        x, y = x, x % y
+        x, y = y, x % y
     }
     return x
 }
