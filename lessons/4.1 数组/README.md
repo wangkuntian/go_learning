@@ -81,6 +81,15 @@ make([]T, len, cap) // 和make([]T, cap)[:len]功能相同。
 ## append函数
 append函数用来将元素追加到slice的后面。
 
+```go
+var x []int
+x = append(x, 1)
+x = append(x, 2, 3)
+x = append(x, 4, 5, 6)
+x = append(x, x...)     // 追加x中的所有元素
+fmt.Println(x)          // [1 2 3 4 5 6 1 2 3 4 5 6]
+```
+
 # 切片与数组的区别
 1. 切片不是数组，但是切片底层指向数组
 2. 切片本身长度是不一定的因此不可以比较，数组是可以的。
