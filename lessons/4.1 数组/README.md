@@ -90,6 +90,19 @@ x = append(x, x...)     // 追加x中的所有元素
 fmt.Println(x)          // [1 2 3 4 5 6 1 2 3 4 5 6]
 ```
 
+> "..."表示将一个slice转换为参数列表。
+
+```go
+func appendInt(x []int, y ...int)[] int {
+	var z []int
+	zlen := len(x) + len(y)
+	copy(z[len(x):], y)
+	return z
+}
+```
+
+> "..."表示该函数可以接受可变长度参数列表。
+
 # 切片与数组的区别
 1. 切片不是数组，但是切片底层指向数组
 2. 切片本身长度是不一定的因此不可以比较，数组是可以的。
