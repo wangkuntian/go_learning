@@ -1,6 +1,4 @@
-
 # 结构体
-
 ```go
 type Employee struct {
 	ID           int
@@ -15,6 +13,7 @@ dilbert.Salary += 1000
 position := &dilbert.Position
 *position = "Senior" + *position
 ```
+
 ## 结构体字面量
 结构体类型的值可以通过结构体字面量来设置。
 ```go
