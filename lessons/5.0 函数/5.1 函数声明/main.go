@@ -7,25 +7,6 @@ import (
 	"os"
 )
 
-func countWordsAndImages(n *html.Node) (words, images int) {
-	return 0, 0
-}
-
-func CountWordsAndImages(url string) (words, images int, err error) {
-	response, err := http.Get(url)
-	if err != nil {
-		return
-	}
-	doc, err := html.Parse(response.Body)
-	response.Body.Close()
-	if err != nil {
-		err = fmt.Errorf("parsing HTML: %s", err)
-		return
-	}
-	words, images = countWordsAndImages(doc)
-	return
-}
-
 func visit(links []string, n *html.Node) []string {
 	if n.Type == html.ElementNode && n.Data == "a" {
 		for _, a := range n.Attr {

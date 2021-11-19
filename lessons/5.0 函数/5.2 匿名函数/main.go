@@ -24,7 +24,7 @@ var prereqs = map[string][]string{
 		"formal languages",
 		"computer organization",
 	},
-	"data structures":       {" discrete math"},
+	"data structures":       {"discrete math"},
 	"databases":             {"data structures"},
 	"discrete math":         {"intro to programming"},
 	"formal languages":      {"discrete math"},
@@ -130,7 +130,7 @@ func main() {
 	fmt.Println(f())
 
 	for i, course := range topSort(prereqs) {
-		fmt.Printf("%d:\t%s\n", i+1, course)
+		fmt.Printf("%d: %s\n", i+1, course)
 	}
 	breadthFirst(crawl, []string{"https://docs.openstack.org/queens/"})
 }
