@@ -1,6 +1,6 @@
 ### Go template
 # Binaries for programs and plugins
-./.idea
+/.idea
 *.exe
 *.exe~
 *.dll
