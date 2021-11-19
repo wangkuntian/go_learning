@@ -1,4 +1,4 @@
-
+# 赋值
 ```go
 x = 1
 *p = true
@@ -12,12 +12,13 @@ v--
 
 # 多重赋值
 
+交换两个变量的值。
 ```go
 x, y = y, x
 a[i], a[j] = a[j], a[i]
 ```
 
-两个整数的最大公约数
+两个整数的最大公约数。
 ```go
 func gcd(x, y int) int {
     for y != 0 {
@@ -27,10 +28,10 @@ func gcd(x, y int) int {
 }
 ```
 
-计算斐波那契数列的第N个数
+计算斐波那契数列的第N个数。
 ```go
 func fib(n int) int {
-    x , y = 0, 1
+    x, y := 0, 1
     for i := 0; i < n; i++ {
         x, y = y, x + y
     }
