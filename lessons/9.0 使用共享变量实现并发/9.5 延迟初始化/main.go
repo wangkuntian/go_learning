@@ -7,8 +7,12 @@ import (
 
 var icons map[string]image.Image
 
-// 并发不安全
 func loadIcon(name string) image.Image {
+	return icons[name]
+}
+
+// 并发不安全
+func Icon(name string) image.Image {
 	if icons == nil {
 		loadIcons()
 	}
@@ -27,7 +31,7 @@ func loadIcons() {
 var loadIconsOnce sync.Once
 
 // Icon 并发安全
-func Icon(name string) image.Image {
+func Icon2(name string) image.Image {
 	loadIconsOnce.Do(loadIcons)
 	return icons[name]
 }
