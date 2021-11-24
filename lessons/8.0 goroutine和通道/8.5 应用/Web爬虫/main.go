@@ -73,7 +73,7 @@ func main() {
 	worklist := make(chan []string)
 	unseenLinks := make(chan string)
 
-	go func() { worklist <- []string{"https://www.baidu.com", "https://baidu.com"} }()
+	go func() { worklist <- []string{"https://www.bing.com", "https://bing.com"} }()
 
 	for i := 0; i < 20; i++ {
 		go func() {
