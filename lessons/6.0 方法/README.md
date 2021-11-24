@@ -51,20 +51,21 @@ func (p *Point) ScaleBy(factor float64) {
 ```
 调用
 ```go
-r := Point{1, 2}
+r := &Point{1, 2}
 r.ScaleBy(2)
 fmt.Println(r)      // {2 4}
 ```
 或者
 ```go
-r := &Point{1, 2}
+p := Point{1, 2}
+pptr := &P
 r.ScaleBy(2)
 fmt.Println(*r)     // {2 4}
 ```
 或者
 ```go
-r := Point{1, 2}
-(&r).ScaleBy(2)
+p := Point{1, 2}
+(&p).ScaleBy(2)
 fmt.Println(r)      // {2 4}
 ```
 
@@ -77,8 +78,53 @@ fmt.Println(r)      // {2 4}
 Point{1, 2}.ScaleBy(2) //编译错误。
 ```
 
-# 结构体扩展
+在合法的方法调用表达式中，只有符合下面三种形式的语句才能够成立。
+1. 实参接收者和形参接收者是同一个类型，比如都是T类型或者都是*T类型。
 ```go
+Point{1, 2}.Distance(q) // Point
+pptr.ScaleBy(2)         // *Point
+```
+
+2. 实参接收者是T类型的变量而形参接收这个是*T类型。编译器会隐式地获取变量的地址。
+```go
+p.ScaleBy(2)            // 隐式转换为(&p)
+```
+
+3. 实参接收者是*T类型而形参接收者是T类型。编译器会隐式地引用接收者，获得实际的值。
+```go
+pptr.Distance(q)        // 隐式转换为(*pptr)
+```
+
+如果所有类型T方法的接收者是T自己（而非*T），那么复制它的实例是安全的；调用方法的时候都必须进行一次复制。但是任何方法的接收者是指针的情况下，应该避免复制T的实例，因为这么做可能会破坏内部原本的数据。
+
+```go
+Point{1, 2}.ScaleBy(2)  // 编译错误，无法从一个无地址的Point值上调用ScaleBy。
+```
+
+## nil是一个合法的接收者
+就像一些函数允许nil指针作为实参，方法接收者也一样，尤其是当nil是类型中有意义的零值（如map和slice类型）时，更是如此。
+
+在这个简单的整型数链表中，nil代表空链表。
+```go
+type IntList struct {
+	Value int
+	Tail *IntList
+}
+// Sum返回列表元素的总和
+func (list *IntList) Sum() int {
+	if list == nil {
+		return 0
+    }
+	return list.Value + list.Tail.Sum()
+}
+```
+
+# 结构体内嵌
+```go
+import "image/color"
+
+type Point struct{ X, Y float64 }
+
 type ColoredPoint struct {
 	Point
 	Color color.RGBA
@@ -113,8 +159,8 @@ fmt.Println(*m.Point, *m.Point)     // {10 8} {10 8}
 
 # 方法变量
 ```go
-p := Point(1, 2)
-q := Point(4, 6)
+p := Point{1, 2}
+q := Point{4, 6}
 distanceFromP := p.Distance         // 方法变量
 fmt.Println(distanceFromP(q))       // 5
 
@@ -125,8 +171,8 @@ scaleP(3)                           // p(6, 12)
 
 # 方法表达式
 ```go
-p := Point(1, 2)
-q := Point(4, 6)
+p := Point{1, 2}
+q := Point{4, 6}
 distance := Point.Distance          // 方法表达式
 fmt.Println(distance(p, q))         // 5
 
